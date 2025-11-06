@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenBite | Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f8f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ==============================
+       NAVIGATION BAR
+    =============================== */
+    .nav {
+      top: 0;
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2e7d32;
+      padding: 10px 25px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .cookbook-icon {
+      height: 70px;
+      width: 140px;
+      transition: transform 0.3s ease;
+    }
+
+    .cookbook-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-right {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-right li a {
+      color: #f9efbc;
+      font-size: 20px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-right li a:hover {
+      color: white;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       MAIN LOGIN SECTION
+    =============================== */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 140px 20px 60px; /* top padding avoids overlap */
+      background-image: url('https://i.pinimg.com/1200x/e4/bf/c5/e4bfc590511f24003fead193b8fd87dc.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      width: 360px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #2e7d32;
+      font-size: 28px;
+      letter-spacing: 1px;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .login-container input:focus {
+      border-color: #2e7d32;
+      outline: none;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #256626;
+      transform: translateY(-1px);
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      color: #2e7d32;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    /* ==============================
+       FOOTER
+    =============================== */
+    footer {
+      text-align: center;
+      background-color: #2e7d32;
+      color: #f9efbc;
+      padding: 25px 10px;
+    }
+
+    .footer-icon .fa-brands {
+      color: #f9efbc;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-icon .fa-brands:hover {
+      transform: translateY(-8px);
+      color: white;
+    }
+
+    .footer-text {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .login-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+
+      .nav-right {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="nav">
+      <a href="./index.html"><img class="cookbook-icon" src="./images/cookbook4.PNG" alt="GreenBite logo"></a>
+      <ul class="nav-right">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./recipes.html">Recipes</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+        <li><a href="./login.html">Login</a></li>
+        <li><a href="./signup.html">Signup</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- LOGIN FORM -->
+  <main>
+    <div class="login-container">
+      <h2>Login</h2>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <p id="status-message" class="error-message"></p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-text">
+      <h3>&copy; 2025 GreenBite. All Rights Reserved.<br>
+      Contact: +91 70044 28306 | Email: Greenbite258@gmail.com</h3>
+    </div>
+    <div class="footer-icon">
+      <a href="#"><i class="fa-brands fa-facebook fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-google-plus-g fa-2x"></i></a>
+    </div>
+  </footer>
+</body>
+</html>

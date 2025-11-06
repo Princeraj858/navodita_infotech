@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="recipe_toggle.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <title>GreenBite | Contact Us</title>
+  <link rel="icon" href="./images/cookbook_title_icon.PNG" type="image/icon type">
+
+  <style>
+    /* ==============================
+       CONTACT PAGE INLINE CSS – GREEN THEME (#2e7d32)
+    ===============================*/
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f8f5;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+  /* ==============================
+       NAVIGATION BAR
+    =============================== */
+    .nav {
+      top: 0;
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2e7d32;
+      padding: 10px 25px;
+      box-shadow: 1px 1px 20px #707870;
+    }
+
+    .cookbook-icon {
+      height: 80px;
+      width: 150px;
+      transition: transform 0.3s ease;
+    }
+
+    .cookbook-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-right {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-right li a {
+      color: #f9efbc;
+      font-size: 20px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-right li a:hover {
+      color: white;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       HEADER IMAGE / BANNER
+    =============================== */
+    .tags-img {
+      overflow: hidden;
+      height: 500px;
+      width: 100%;
+      margin-top: 90px;
+      position: relative;
+    }
+
+    .tags-header-img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .tags-tagline {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #f9efbc;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 70px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .toggle-button {
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+    }
+
+    .toggle-button .bar {
+      height: 3px;
+      width: 100%;
+      background-color: #F0D66A;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 800px) {
+      .toggle-button {
+        display: flex;
+      }
+      .nav-right {
+        flex-direction: column;
+        width: 100%;
+        background-color: #2e7d32;
+        display: none;
+      }
+      .nav-right.active {
+        display: flex;
+      }
+    }
+
+    /* CONTACT PAGE BANNER */
+    .bg_img {
+      overflow: hidden;
+      height: 500px;
+      width: 100%;
+      position: relative;
+    }
+
+    .bg_img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(80%);
+    }
+
+    .contact-banner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #F0D66A;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 80px;
+      font-weight: bold;
+    }
+
+    /* CONTACT LAYOUT */
+    .contact {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      margin: 20px;
+      padding-top: 40px;
+    }
+
+    .contact-form {
+      background-color: #d0e8d0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .contact-form p {
+      text-align: center;
+      color: #2e7d32;
+      font-size: 28px;
+      font-weight: bold;
+      font-family: cursive;
+      margin: 10px 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+    }
+
+    #name, #email, #message {
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #2e7d32;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    #message {
+      height: 100px;
+      resize: none;
+    }
+
+    .submit {
+      font-size: medium;
+      padding: 10px 25px;
+      border-radius: 7px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .submit:hover {
+      background-color: #1b5e20;
+    }
+
+    /* CONTACT INFO */
+    .contact-img {
+      background-color: #eaf5ea;
+      border-radius: 10px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .contact-text {
+      text-align: center;
+      color: #333;
+      padding: 20px;
+      font-family: sans-serif;
+      border-radius: 10px;
+    }
+
+    .contact-text i {
+      color: #2e7d32;
+      margin: 10px;
+      font-size: 25px;
+    }
+
+    .contact-text h3 {
+      margin-bottom: 10px;
+      color: #2e7d32;
+    }
+
+    .contact-text a {
+      text-decoration: none;
+      color: #2e7d32;
+      font-weight: bold;
+    }
+
+    .contact-text a:hover {
+      color: #1b5e20;
+    }
+
+    .contact-map {
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .contact-map iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    /* ==============================
+       FOOTER
+    =============================== */
+    footer {
+      text-align: center;
+      background-color: #2e7d32;
+      color: #f9efbc;
+      padding: 30px 10px;
+      margin-top: 50px;
+    }
+
+    .footer-icon .fa-brands {
+      color: #f9efbc;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-icon .fa-brands:hover {
+      transform: translateY(-8px);
+      color: white;
+    }
+
+    .footer-text {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    @media only screen and (max-width: 540px) {
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-banner-text {
+        font-size: 50px;
+      }
+
+      .contact-text {
+        font-size: 15px;
+      }
+
+      form {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="nav">
+      <a href="./index.html"><img class="cookbook-icon" src="./images/cookbook4.PNG" alt="Cookbook logo"></a>
+      <ul class="nav-right">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./recipes.html">Recipes</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+        <li><a href="./login.html">login</a></li>
+        <li><a href="./signup.html">Signup</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="bg_img">
+    <img src="images/contactus-banner4.jpg" alt="contact banner">
+    <div class="contact-banner-text">GET IN TOUCH</div>
+  </div>
+
+  <div class="contact">
+    <div class="contact-form">
+      <p>Have an Enquiry?</p>
+      <form id="form-main">
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="email" id="email" placeholder="Enter a valid email address" required>
+        <textarea id="message" placeholder="Enter your message" required></textarea>
+        <button type="submit" class="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="contact-img">
+      <div class="contact-text">
+        <i class="fa-solid fa-phone"></i>
+        <h3>Call Us</h3>
+        <p>+91 7004428306<br>+91 8877968598</p>
+      </div>
+
+      <div class="contact-text">
+        <i class="fa-solid fa-envelope"></i>
+        <h3>Email Us</h3>
+        <a href="mailto:cookbook@abcsupport.com">Greenbite258@gmail.com</a>
+      </div>
+
+   
+      <div class="contact-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.6529676289233!2d88.416220575076!3d22.517199979531142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0273f58b9feec5%3A0x30f8067b73c45d8!2sHeritage%20Institute%20of%20Technology%2C%20Kolkata!5e0!3m2!1sen!2sin!4v1762373941457!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+
+<footer>
+    <div class="footer-text">
+      <h3><p>&copy; 2025 PRINCE RAJ. All rights reserved.<br> Contact : +91 70044 28306 <br> Email: Greenbite258@gmail.com</p></h3>
+    </div>
+    <div class="footer-icon">
+      <a href="#"><i class="fa-brands fa-facebook fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-google-plus-g fa-2x"></i></a>
+    </div>
+  </footer>
+
+</body>
+</html>

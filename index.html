@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greenbite| Menu</title>
+  <script src="recipe_toggle.js" defer></script>
+  <link rel="icon" href="./images/cookbook_title_icon.PNG" type="image/icon type">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+  <style>
+    /* ==============================
+       THEME COLORS
+       Primary: #2e7d32 (green)
+       Accent: #f9efbc
+       Text: #333
+    =============================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f8f5;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ==============================
+       NAVIGATION BAR
+    =============================== */
+    .nav {
+      top: 0;
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2e7d32;
+      padding: 10px 25px;
+      box-shadow: 1px 1px 20px #707870;
+    }
+
+    .cookbook-icon {
+      height: 80px;
+      width: 150px;
+      transition: transform 0.3s ease;
+    }
+
+    .cookbook-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-right {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-right li a {
+      color: #f9efbc;
+      font-size: 20px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-right li a:hover {
+      color: white;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       HEADER IMAGE / BANNER
+    =============================== */
+    .tags-img {
+      overflow: hidden;
+      height: 500px;
+      width: 100%;
+      margin-top: 90px;
+      position: relative;
+    }
+
+    .tags-header-img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .tags-tagline {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #f9efbc;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 70px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       MENU SECTION
+    =============================== */
+    .tags-recipe-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .tags-recipe-header h2 {
+      color: #2e7d32;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .tags-viewall-btn {
+      margin: 20px;
+      padding: 8px 15px;
+      background-color: #f9efbc;
+      color: #1a1a1a;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .tags-viewall-btn:hover {
+      background-color: #2e7d32;
+      color: #fff;
+    }
+
+    .tags-recipe-type {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 0 auto 30px auto;
+      padding: 15px;
+    }
+
+    .tags-recipe-type-img {
+      position: relative;
+      background-color: #dcefdc;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .tags-recipe-type-img:hover {
+      transform: scale(1.03);
+    }
+
+    .tags-recipe-type-img img {
+      height: 220px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .tag-item-name {
+      text-align: center;
+      font-size: 20px;
+      color: #2e7d32;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    .middle {
+      transition: 0.3s ease;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .tags-recipe-type-img:hover .middle {
+      opacity: 1;
+    }
+
+    .text a {
+      background-color: #f9efbc;
+      color: #2e7d32;
+      font-size: 18px;
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .text a:hover {
+      background-color: #2e7d32;
+      color: white;
+    }
+
+    /* ==============================
+       FOOTER
+    =============================== */
+    footer {
+      text-align: center;
+      background-color: #2e7d32;
+      color: #f9efbc;
+      padding: 30px 10px;
+      margin-top: 50px;
+    }
+
+    .footer-icon .fa-brands {
+      color: #f9efbc;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-icon .fa-brands:hover {
+      transform: translateY(-8px);
+      color: white;
+    }
+
+    .footer-text {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    /* ==============================
+       RESPONSIVE DESIGN
+    =============================== */
+    @media (max-width: 768px) {
+      .tags-tagline {
+        font-size: 40px;
+        width: 90%;
+      }
+
+      .nav-right {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav">
+      <a href="./index.html"><img class="cookbook-icon" src="./images/cookbook4.PNG" alt="Cookbook logo"></a>
+      <ul class="nav-right">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./recipes.html">Recipes</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+        <li><a href="./login.html">login</a></li>
+        <li><a href="./signup.html">Signup</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="tags-img">
+    <img src="images/about-bg-img.jpg" alt="background" class="tags-header-img">
+    <p class="tags-tagline">Recipes of Beautifully Crafted Dishes</p>
+  </div>
+
+  <!-- SALADS -->
+  <nav class="tags-recipe-header">
+    <h2>Salads</h2>
+    <a href="./recipes.html" class="tags-viewall-btn">View All</a>
+  </nav>
+
+  <div class="tags-recipe-type">
+    <div class="tags-recipe-type-img">
+      <img src="images/salad1.jpg" alt="Salad 1">
+      <div class="tag-item-name">Green Garden Salad</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/salad2.jpg" alt="Salad 2">
+      <div class="tag-item-name">Fruit Fusion Bowl</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/salad4.jpg" alt="Salad 3">
+      <div class="tag-item-name">Caesar Delight</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/salad8.jpg" alt="Salad 4">
+      <div class="tag-item-name">Avocado Paradise</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/russiansalad.PNG" alt="Salad 5">
+      <div class="tag-item-name">Russian Salad</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+  </div>
+
+  <!-- CHINESE -->
+  <nav class="tags-recipe-header">
+    <h2>Chinese</h2>
+    <a href="./recipes.html" class="tags-viewall-btn">View All</a>
+  </nav>
+
+  <div class="tags-recipe-type">
+    <div class="tags-recipe-type-img">
+      <img src="images/noodles1.jpg" alt="Noodles">
+      <div class="tag-item-name">Veg Hakka Noodles</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/noodles2.jpg" alt="Schezwan">
+      <div class="tag-item-name">Schezwan Noodles</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/noodles4.jpg" alt="Noodles 3">
+      <div class="tag-item-name">Dragon Chowmein</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+  </div>
+
+  <!-- PIZZA -->
+  <nav class="tags-recipe-header">
+    <h2>Pizza & Burger</h2>
+    <a href="./recipes.html" class="tags-viewall-btn">View All</a>
+  </nav>
+
+  <div class="tags-recipe-type">
+    <div class="tags-recipe-type-img">
+      <img src="images/pizza1.jpg" alt="Pizza 1">
+      <div class="tag-item-name">Margherita Classic</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/Farmhouse.jpg" alt="Pizza 2">
+      <div class="tag-item-name">Farmhouse Delight</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+     <div class="tags-recipe-type-img">
+      <img src="images/burger1.jpg" alt="Burger 1">
+      <div class="tag-item-name">Veggie Stack</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/burger2.jpg" alt="Burger 2">
+      <div class="tag-item-name">Spicy Paneer Burger</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+
+    <div class="tags-recipe-type-img">
+      <img src="images/burger3.jpg" alt="Burger 3">
+      <div class="tag-item-name">Cheese Melt Burger</div>
+      <div class="middle"><div class="text"><a href="./recipes.html">View Recipe</a></div></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-text">
+      <h3><p>&copy; 2025 PRINCE RAJ. All rights reserved.<br> Contact : +91 70044 28306 <br> Email: Greenbite258@gmail.com</p></h3>
+    </div>
+    <div class="footer-icon">
+      <a href="#"><i class="fa-brands fa-facebook fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-google-plus-g fa-2x"></i></a>
+    </div>
+  </footer>
+</body>
+</html>

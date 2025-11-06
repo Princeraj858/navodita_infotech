@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenBite | Recipes</title>
+  <link rel="icon" href="./images/cookbook_title_icon.PNG" type="image/icon type" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+  <style>
+    /* ==============================
+       GLOBAL STYLES
+    =============================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f8f5;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ==============================
+       NAVIGATION BAR
+    =============================== */
+    .nav {
+      top: 0;
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2e7d32;
+      padding: 10px 25px;
+      box-shadow: 1px 1px 20px #707870;
+    }
+
+    .cookbook-icon {
+      height: 70px;
+      width: 140px;
+      transition: transform 0.3s ease;
+    }
+
+    .cookbook-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-right {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-right li a {
+      color: #f9efbc;
+      font-size: 20px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-right li a:hover {
+      color: white;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       CATEGORY MENU
+    =============================== */
+    .menu-list {
+      margin-top: 100px;
+      color: #2e7d32;
+      padding-left: 20px;
+      font-size: larger;
+      font-weight: bolder;
+    }
+
+    .menu-items {
+      color: #2e7d32;
+      font-size: larger;
+      padding-left: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .menu-items:hover {
+      color: #1b5e20;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       RECIPE GRID
+    =============================== */
+    .section-title {
+      background-color: #fff;
+      color: #2e7d32;
+      font-size: 30px;
+      text-align: center;
+      font-weight: bolder;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
+
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .recipe-container {
+      background-color: #e8f5e9;
+      border-radius: 10px;
+      padding: 15px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .recipe-container:hover {
+      transform: scale(1.01);
+      box-shadow: 1px 1px 15px #c5e1a5;
+    }
+
+    .recipe-img-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .recipe-card-name {
+      font-size: 26px;
+      color: #2e7d32;
+      font-family: Georgia, Times, 'Times New Roman', serif;
+      font-weight: bold;
+    }
+
+    .recipe-card-name:hover {
+      color: #1b5e20;
+    }
+
+    .clap-no {
+      font-size: 20px;
+      color: #f0d66a;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .recipe--img {
+      width: 100%;
+      border-radius: 10px;
+      margin: 10px 0;
+      display: block;
+    }
+
+    .recipe-icon-details {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 10px;
+      border: 1px dotted #2e7d32;
+      border-radius: 10px;
+      background-color: #2e7d32;
+      color: white;
+    }
+
+    .recipe-icon-text {
+      font-family: 'Arial Narrow Bold', sans-serif;
+      color: #f0d66a;
+      margin-left: 5px;
+    }
+
+    .tot-cook-time {
+      font-size: 16px;
+      color: #f0d66a;
+      margin-top: 3px;
+    }
+
+    .fa-clock,
+    .fa-kitchen-set,
+    .fa-fire-burner,
+    .fa-bell-concierge,
+    .fa-face-smile-beam {
+      color: #f0d66a;
+    }
+
+    /* ==============================
+       INGREDIENTS
+    =============================== */
+    .recipe-ingredients {
+      background-color: #ffffff;
+      border-radius: 5px;
+      margin: 10px 0;
+      padding: 10px 15px;
+      border: 1px solid #c8e6c9;
+    }
+
+    .ingredients-heading {
+      text-align: center;
+      color: #2e7d32;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .ingredients-list {
+      list-style: disc;
+      color: #333;
+      padding-left: 30px;
+      line-height: 1.5;
+      font-family: Georgia, Times, 'Times New Roman', serif;
+    }
+
+    /* ==============================
+       VIDEO & RATING
+    =============================== */
+    .recipe-video {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .recipe-video video {
+      border-radius: 20px;
+      width: 90%;
+      margin: 10px 0;
+    }
+
+    .recipe-ratings {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .recipe-ratings i {
+      color: #2e7d32;
+      margin: 0 2px;
+    }
+
+    .recipe-ratings p {
+      color: #333;
+    }
+
+    /* ==============================
+       FOOTER
+    =============================== */
+    footer {
+      text-align: center;
+      background-color: #2e7d32;
+      color: #f9efbc;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+
+    .footer-icon .fa-brands {
+      color: #f9efbc;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-icon .fa-brands:hover {
+      transform: translateY(-8px);
+      color: white;
+    }
+
+    .footer-text {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    /* ==============================
+       RESPONSIVE DESIGN
+    =============================== */
+    @media (max-width: 900px) {
+      .recipes {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+
+      .nav-right {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVIGATION -->
+  <header>
+    <nav class="nav">
+      <a href="./index.html"><img class="cookbook-icon" src="./images/cookbook4.PNG" alt="GreenBite logo" /></a>
+      <ul class="nav-right">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./recipes.html">Recipes</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+        <li><a href="./login.html">Login</a></li>
+        <li><a href="./signup.html">Signup</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CATEGORY MENU -->
+  <nav class="menu-list">
+    <a href="./coming_soon.html" class="menu-items">Salad</a>
+    <a href="./recipes.html" class="menu-items">Chinese</a>
+    <a href="./coming_soon.html" class="menu-items">Pizza</a>
+    <a href="./coming_soon.html" class="menu-items">Burger</a>
+  </nav>
+
+  <!-- SECTION TITLE -->
+  <div class="section-title">Chinese Recipes</div>
+
+  <!-- RECIPE GRID -->
+  <section class="recipes">
+    <!-- Example Recipe Card -->
+    <div class="recipe-container">
+      <div class="recipe-img-name">
+        <a href="#" class="recipe-card-name">Veg Hakka Noodles</a>
+        <i class="fa-solid fa-hands-clapping"><span class="clap-no"> 550</span></i>
+      </div>
+
+      <img src="images/veg_hakka_noodles.webp" alt="Veg Hakka Noodles" class="recipe--img" />
+
+      <div class="recipe-icon-details">
+        <div>
+          <i class="fa-solid fa-clock"></i><span class="recipe-icon-text"> Total Cook Time</span>
+          <p class="tot-cook-time">20 mins</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-kitchen-set"></i><span class="recipe-icon-text"> Prep Time</span>
+          <p class="tot-cook-time">5 mins</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-fire-burner"></i><span class="recipe-icon-text"> Cook Time</span>
+          <p class="tot-cook-time">15 mins</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-bell-concierge"></i><span class="recipe-icon-text"> Servings</span>
+          <p class="tot-cook-time">2</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-face-smile-beam"></i><span class="recipe-icon-text"> Easy</span>
+        </div>
+      </div>
+
+      <div class="recipe-ingredients">
+        <h3 class="ingredients-heading">Ingredients</h3>
+        <ul class="ingredients-list">
+          <li>Noodles</li>
+          <li>1 tsp Salt</li>
+          <li>1 tsp Oil</li>
+          <li>1 tsp Ginger paste & Garlic paste each</li>
+          <li>½ cup Beans</li>
+          <li>½ cup Cabbage, chopped</li>
+          <li>½ cup Carrot, chopped</li>
+          <li>½ cup Spring onion</li>
+          <li>½ cup Capsicum</li>
+          <li>2 tbsp Soy sauce</li>
+          <li>2 tbsp Green chilli sauce</li>
+          <li>1 tbsp Tomato sauce</li>
+        </ul>
+      </div>
+
+      <div class="recipe-video">
+        <video controls poster="images/veg_hakka_noodles2.jfif" src="images/recipe_video.mp4"></video>
+        <div class="recipe-ratings">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <p>5-star rating</p>
+        </div>
+      </div>
+    </div>
+
+      <div class="recipe-container">
+            <div class="recipe-img-name">
+                <a href="./recipes.html" class="recipe-card-name">Schezwan Noodles</a>
+                <i class="fa-solid fa-hands-clapping"> <span class="clap-no">290</span></i>
+            </div>
+            <div class="recipe-img">
+                <img src="images\schezwan_noodles.webp" alt="schezwan_noodles" class="recipe--img">
+
+            </div>
+            <div class="recipes-contents" >
+                <!-- new start of new div -->
+
+                <div class="recipe-icon-details">
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-clock"></i> 
+                        <span class="recipe-icon-text">Total Cook Time</span>
+                        <p class="tot-cook-time">35 mins</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-kitchen-set"></i>
+                        <span class="recipe-icon-text">Prep Time</span>
+                        <p class="tot-cook-time">20 mins</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-fire-burner"></i> 
+                        <span class="recipe-icon-text"> Cook Time</span>
+                        <p class="tot-cook-time">10 mins</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                        <span class="recipe-icon-text">Recipe Serving</span>
+                        <p class="tot-cook-time">2</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-face-smile-beam"></i> 
+                        <span class="recipe-icon-text">Easy</span>
+                        <!-- <p class="tot-cook-time">0 min</p> -->
+                    </div>
+                   
+             <!-- new end of new div -->
+                </div>
+                <div class="recipe-ingredients">
+                    <h3 class="ingredients-heading">Ingredients</h3>
+                    <div class="ingredients-list">
+                        <li class="ingredient-nos">Noodles</li>
+                        <li class="ingredient-nos">1 tsp Salt</li>
+                        <li class="ingredient-nos">1 tsp Oil</li>
+                        <li class="ingredient-nos">1 tsp Ginger paste & Garlic paste each</li>
+                        <li class="ingredient-nos">1/2 cup Beans</li>
+                        <li class="ingredient-nos">1/2 cup Cabbage, chopped</li>
+                        <li class="ingredient-nos">1/2 cup Carrot, chopped</li>
+                        <li class="ingredient-nos">1/2 cup Spring onion, chopped   </li>
+                        <li class="ingredient-nos">1/2 cup Capsicum, chopped</li>
+                        <li class="ingredient-nos">2 tbsp Soy sauce</li>
+                        <li class="ingredient-nos">2 tbsp Green chilli sauce</li>
+                        <li class="ingredient-nos">1 tbsp Tomato sauce</li>
+                    </div>
+                </div>
+
+                <div class="recipe-video">
+                    
+                    <video controls width="70%" controlslist="nodownload" poster = "images/veg_hakka_noodles2.jfif" src="images\recipe_video.mp4" class="recipe-video-link"  >Click Here to watch the video</video>
+                    <div class="recipe-ratings">
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <p>5 star rating</p>
+
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="recipe-container">
+            <div class="recipe-img-name">
+                <a href="./recipes.html" class="recipe-card-name">Veg Hakka Noodles</a>
+                <i class="fa-solid fa-hands-clapping"> <span class="clap-no">250</span></i>
+            </div>
+            <div class="recipe-img">
+                <img src="images\veg_hakka_noodles.webp" alt="veg_hakka_noodles" class="recipe--img">
+
+            </div>
+            <div class="recipes-contents" >
+                <!-- new start of new div -->
+
+                <div class="recipe-icon-details">
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-clock"></i> 
+                        <span class="recipe-icon-text">Total Cook Time</span>
+                        <p class="tot-cook-time">30 mins</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-kitchen-set"></i>
+                        <span class="recipe-icon-text">Prep Time</span>
+                        <p class="tot-cook-time">10 mins</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-fire-burner"></i> 
+                        <span class="recipe-icon-text"> Cook Time</span>
+                        <p class="tot-cook-time">20 mins</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                        <span class="recipe-icon-text">Recipe Serving</span>
+                        <p class="tot-cook-time">2</p>
+                    </div>
+
+                    <div class="recipe-totalCookTime">
+                        <i class="fa-solid fa-face-smile-beam"></i> 
+                        <span class="recipe-icon-text">Medium</span>
+                        <!-- <p class="tot-cook-time">0 min</p> -->
+                    </div>
+                   
+             <!-- new end of new div -->
+                </div>
+                <div class="recipe-ingredients">
+                    <h3 class="ingredients-heading">Ingredients</h3>
+                    <div class="ingredients-list">
+                        <li class="ingredient-nos">Noodles</li>
+                        <li class="ingredient-nos">1 tsp Salt</li>
+                        <li class="ingredient-nos">1 tsp Oil</li>
+                        <li class="ingredient-nos">1 tsp Ginger paste & Garlic paste each</li>
+                        <li class="ingredient-nos">1/2 cup Beans</li>
+                        <li class="ingredient-nos">1/2 cup Cabbage, chopped</li>
+                        <li class="ingredient-nos">1/2 cup Carrot, chopped</li>
+                        <li class="ingredient-nos">1/2 cup Spring onion, chopped   </li>
+                        <li class="ingredient-nos">1/2 cup Capsicum, chopped</li>
+                        <li class="ingredient-nos">2 tbsp Soy sauce</li>
+                        <li class="ingredient-nos">2 tbsp Green chilli sauce</li>
+                        <li class="ingredient-nos">1 tbsp Tomato sauce</li>
+                    </div>
+                </div>
+
+                <div class="recipe-video">
+                 
+                    <video controls width="70%" controlslist="nodownload" poster = "images/veg_hakka_noodles2.jfif" src="images\recipe_video.mp4" class="recipe-video-link"  >Click Here to watch the video</video>
+                    <div class="recipe-ratings">
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <p>5 star rating</p>
+                       
+
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+
+
+            <!-- right side content start 1 -->
+
+            <div class="recipe-container">
+                <div class="recipe-img-name">
+                    <a href="./recipes.html" class="recipe-card-name">Veg Hakka Noodles</a>
+                    <i class="fa-solid fa-hands-clapping"> <span class="clap-no">350</span></i>
+                </div>
+                <div class="recipe-img">
+                    <img src="images\veg_hakka_noodles.webp" alt="veg_hakka_noodles" class="recipe--img">
+    
+                </div>
+                <div class="recipes-contents" >
+                    <!-- new start of new div -->
+    
+                    <div class="recipe-icon-details">
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-clock"></i> 
+                            <span class="recipe-icon-text">Total Cook Time</span>
+                            <p class="tot-cook-time">30 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-kitchen-set"></i>
+                            <span class="recipe-icon-text">Prep Time</span>
+                            <p class="tot-cook-time">5 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-fire-burner"></i> 
+                            <span class="recipe-icon-text"> Cook Time</span>
+                            <p class="tot-cook-time">25 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-bell-concierge"></i>
+                            <span class="recipe-icon-text">Recipe Serving</span>
+                            <p class="tot-cook-time">2</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-face-smile-beam"></i> 
+                            <span class="recipe-icon-text">Easy</span>
+                            <!-- <p class="tot-cook-time">0 min</p> -->
+                        </div>
+                       
+                 <!-- new end of new div -->
+                    </div>
+                    <div class="recipe-ingredients">
+                        <h3 class="ingredients-heading">Ingredients</h3>
+                        <div class="ingredients-list">
+                            <li class="ingredient-nos">Noodles</li>
+                            <li class="ingredient-nos">1 tsp Salt</li>
+                            <li class="ingredient-nos">1 tsp Oil</li>
+                            <li class="ingredient-nos">1 tsp Ginger paste & Garlic paste each</li>
+                            <li class="ingredient-nos">1/2 cup Beans</li>
+                            <li class="ingredient-nos">1/2 cup Cabbage, chopped</li>
+                            <li class="ingredient-nos">1/2 cup Carrot, chopped</li>
+                            <li class="ingredient-nos">1/2 cup Spring onion, chopped   </li>
+                            <li class="ingredient-nos">1/2 cup Capsicum, chopped</li>
+                            <li class="ingredient-nos">2 tbsp Soy sauce</li>
+                            <li class="ingredient-nos">2 tbsp Green chilli sauce</li>
+                            <li class="ingredient-nos">1 tbsp Tomato sauce</li>
+                        </div>
+                    </div>
+    
+                    <div class="recipe-video">
+                        
+                        <video controls width="70%" controlslist="nodownload" poster = "images/veg_hakka_noodles2.jfif" src="images\recipe_video.mp4" class="recipe-video-link"  >Click Here to watch the video</video>
+                        <div class="recipe-ratings">
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <p>5 star rating</p>
+                        </div>
+                   
+                    </div>
+                </div>
+            </div> 
+
+
+            <!-- right side content end1 -->
+
+            <div class="recipe-container">
+                <div class="recipe-img-name">
+                    <a href="./recipes.html" class="recipe-card-name">Veg Hakka Noodles</a>
+                    <i class="fa-solid fa-hands-clapping"> <span class="clap-no">255</span></i>
+                </div>
+                <div class="recipe-img">
+                    <img src="images\veg_hakka_noodles.webp" alt="veg_hakka_noodles" class="recipe--img">
+    
+                </div>
+                <div class="recipes-contents" >
+                    <!-- new start of new div -->
+    
+                    <div class="recipe-icon-details">
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-clock"></i> 
+                            <span class="recipe-icon-text">Total Cook Time</span>
+                            <p class="tot-cook-time">35 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-kitchen-set"></i>
+                            <span class="recipe-icon-text">Prep Time</span>
+                            <p class="tot-cook-time">15 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-fire-burner"></i> 
+                            <span class="recipe-icon-text"> Cook Time</span>
+                            <p class="tot-cook-time">20 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-bell-concierge"></i>
+                            <span class="recipe-icon-text">Recipe Serving</span>
+                            <p class="tot-cook-time">2</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-face-smile-beam"></i> 
+                            <span class="recipe-icon-text">Medium</span>
+                            <!-- <p class="tot-cook-time">0 min</p> -->
+                        </div>
+                       
+                 <!-- new end of new div -->
+                    </div>
+                    <div class="recipe-ingredients">
+                        <h3 class="ingredients-heading">Ingredients</h3>
+                        <div class="ingredients-list">
+                            <li class="ingredient-nos">Noodles</li>
+                            <li class="ingredient-nos">1 tsp Salt</li>
+                            <li class="ingredient-nos">1 tsp Oil</li>
+                            <li class="ingredient-nos">1 tsp Ginger paste & Garlic paste each</li>
+                            <li class="ingredient-nos">1/2 cup Beans</li>
+                            <li class="ingredient-nos">1/2 cup Cabbage, chopped</li>
+                            <li class="ingredient-nos">1/2 cup Carrot, chopped</li>
+                            <li class="ingredient-nos">1/2 cup Spring onion, chopped   </li>
+                            <li class="ingredient-nos">1/2 cup Capsicum, chopped</li>
+                            <li class="ingredient-nos">2 tbsp Soy sauce</li>
+                            <li class="ingredient-nos">2 tbsp Green chilli sauce</li>
+                            <li class="ingredient-nos">1 tbsp Tomato sauce</li>
+                        </div>
+                    </div>
+    
+                    <div class="recipe-video">
+                      
+                        <video controls width="70%" controlslist="nodownload" poster = "images/veg_hakka_noodles2.jfif" src="images\recipe_video.mp4" class="recipe-video-link"  >Click Here to watch the video</video>
+                        <div class="recipe-ratings">
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <i class="fa-solid fa-star fa-1x"></i>
+                            <p>5 star rating</p>
+                         
+    
+                        </div>
+                   
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="recipe-container">
+                <div class="recipe-img-name">
+                    <a href="./recipes.html" class="recipe-card-name">Veg Hakka Noodles</a>
+                    <i class="fa-solid fa-hands-clapping"> <span class="clap-no">200</span></i>
+                </div>
+                <div class="recipe-img">
+                    <img src="images\veg_hakka_noodles.webp" alt="veg_hakka_noodles" class="recipe--img">
+    
+                </div>
+                <div class="recipes-contents" >
+                    <!-- new start of new div -->
+    
+                    <div class="recipe-icon-details">
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-clock"></i> 
+                            <span class="recipe-icon-text">Total Cook Time</span>
+                            <p class="tot-cook-time">40 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-kitchen-set"></i>
+                            <span class="recipe-icon-text">Prep Time</span>
+                            <p class="tot-cook-time">10 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-fire-burner"></i> 
+                            <span class="recipe-icon-text"> Cook Time</span>
+                            <p class="tot-cook-time">30 mins</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-bell-concierge"></i>
+                            <span class="recipe-icon-text">Recipe Serving</span>
+                            <p class="tot-cook-time">2</p>
+                        </div>
+    
+                        <div class="recipe-totalCookTime">
+                            <i class="fa-solid fa-face-smile-beam"></i> 
+                            <span class="recipe-icon-text">Easy</span>
+                            <!-- <p class="tot-cook-time">0 min</p> -->
+                        </div>
+                       
+                 <!-- new end of new div -->
+                    </div>
+                        <div class="recipe-ingredients">
+                            <h3 class="ingredients-heading">Ingredients</h3>
+                            <div class="ingredients-list">
+                                <li class="ingredient-nos">Noodles</li>
+                                <li class="ingredient-nos">1 tsp Salt</li>
+                                <li class="ingredient-nos">1 tsp Oil</li>
+                                <li class="ingredient-nos">1 tsp Ginger paste & Garlic paste each</li>
+                                <li class="ingredient-nos">1/2 cup Beans</li>
+                                <li class="ingredient-nos">1/2 cup Cabbage, chopped</li>
+                                <li class="ingredient-nos">1/2 cup Carrot, chopped</li>
+                                <li class="ingredient-nos">1/2 cup Spring onion, chopped   </li>
+                                <li class="ingredient-nos">1/2 cup Capsicum, chopped</li>
+                                <li class="ingredient-nos">2 tbsp Soy sauce</li>
+                                <li class="ingredient-nos">2 tbsp Green chilli sauce</li>
+                                <li class="ingredient-nos">1 tbsp Tomato sauce</li>
+                            </div>
+                        </div>
+    
+                        <div class="recipe-video">
+                           <video controls width="70%" controlslist="nodownload" poster = "images/veg_hakka_noodles2.jfif" src="images\recipe_video.mp4" class="recipe-video-link" ></video>
+                            <div class="recipe-ratings">
+                                <!-- <i class="fa-solid fa-star fa-1x"></i> -->
+                                <i class="fa-solid fa-star fa-1x"></i>
+                                <i class="fa-solid fa-star fa-1x"></i>
+                                <i class="fa-solid fa-star fa-1x"></i>
+                                <i class="fa-solid fa-star fa-1x"></i>
+                                <i class="fa-solid fa-star fa-1x"></i>
+                                <p>5 star rating</p>
+                            </div>
+                        </div>
+                </div>
+            </div>      
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-text">
+      <h3>&copy; 2025 GreenBite. All rights reserved.<br />Contact: +91 70044 28306 | Email: Greenbite258@gmail.com</h3>
+    </div>
+    <div class="footer-icon">
+      <a href="#"><i class="fa-brands fa-facebook fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram fa-2x"></i></a>
+      <a href="#"><i class="fa-brands fa-google-plus-g fa-2x"></i></a>
+    </div>
+  </footer>
+</body>
+</html>
